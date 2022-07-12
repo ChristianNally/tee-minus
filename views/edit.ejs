@@ -1,0 +1,20 @@
+<html>
+<head></head>
+<body>
+  <p>Use this form to EDIT a countdown milestone.</p>
+
+<script>
+console.log('this is in a script tag');
+</script>
+  <form action="/milestone/edit/<%= index %>" method="POST">
+    <label for="time">Time:</label>
+    <input id="time" type="text" value="<%= time %>" name="time"/>
+    <br/>
+    <label for="time">Description:</label>
+    <input id="description" type="text" value="<%= statement %>" name="statement"/>
+    <br/>
+    <input type="submit" name="submitbutton" value="Edit"/>
+  </form>
+
+</body>
+</html>
