@@ -1,7 +1,15 @@
 <html>
 <head></head>
 <body></body>
-<% for (let ii = 0; ii < script.length; ii++) { %>
-  <p><span>T-Minus <%= script[ii].time %></span>:&nbsp;<%= script[ii].statement %></p>
-<% } %>
+
+Choose your launch process:
+
+<form action="/launch/start" method="POST">
+  <select name="launchid">
+    <option value="0">Falcon-9 Rocket</option>
+    <option value="1">LHL Lecture</option>
+  </select>
+  <input type="submit" name="launch" value="Launch"/>
+</form>
+
 </html>
