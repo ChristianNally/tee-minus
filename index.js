@@ -24,14 +24,14 @@ const scripts = [
   {time: 100, statement: 'Verify Scheduled Lecture'},
   {time: 90, statement: 'Publish Lecture Preamble'},
   {time: 80, statement: 'Prepare Code'},
-  {time: 70, statement: 'Open Code in Multiple VS Code Windows'},
+  {time: 70, statement: 'Open Code in Multiple Vee-Ess Code Windows'},
   {time: 60, statement: 'Create and Join Zoom Meeting'},
   {time: 50, statement: 'Share Desktop'},
   {time: 40, statement: 'Enable Automatic Transcripts'},
   {time: 30, statement: 'Turn Focus Mode On'},
   {time: 20, statement: 'Open and Arrange Zoom Windows'},
   {time: 10, statement: 'Share Zoom Link with Cohort on Discord lecture links channel for the appropriate cohort'},
-  {time: 0, statement:	'Action!'},
+  {time: 0, statement:	'(Start Zoom Recording Now.) and... Action!'},
 ]
 ];
 
@@ -60,9 +60,19 @@ function getEarliestTime(script){
 }
 
 // LAUNCH
-app.post('/launch/start', (req,res) => {
+app.post('/launch/review', (req,res) => {
   const launchId = req.body.launchid;
   console.log('JSON.stringify(scripts)',JSON.stringify(scripts[launchId]));
+
+  const templateVars = {
+    script: scripts[launchId],
+    launchid: launchId
+  };
+  res.render('review',templateVars);
+});
+
+app.get('/launch/start/:launchid', (req,res) => {
+  const launchId = req.params.launchid;
   const totalDuration = getEarliestTime(scripts[launchId]);
   scripts[launchId].forEach(element => {
     const secondsToGo = totalDuration - element.time;
@@ -99,10 +109,7 @@ app.post('/launch/start', (req,res) => {
       );
     },(totalDuration - countDown)*1000);
   }
-  const templateVars = {
-    script: scripts[launchId],
-  };
-  res.render('launch',templateVars);
+  res.redirect(`/`);
 });
 
 // ADD
